@@ -42,6 +42,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   void initState() {
+    print(_events);
     super.initState();
     initializeDateFormatting();
     _loadPreviousEvents();
@@ -65,6 +66,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         {"eventTitle": "1230", "eventDesc": "123456789"}
       ]
     };
+    print(_events);
   }
 
   List _listOfEvents(DateTime dateTime) {
@@ -112,28 +114,30 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           ),
                         );
                       } else {
-                        if (_events[DateFormat('yyyy-MM-dd')
-                                .format(_selectedDay!)] !=
-                            null) {
-                          _events[DateFormat('yyyy-MM-dd')
-                                  .format(_selectedDay!)]
-                              ?.add({
-                            "eventTitle": titleController.text,
-                            "eventDesc": descController.text
-                          });
-                        } else {
-                          _events[DateFormat('yyyy-MM-dd')
-                              .format(_selectedDay!)] = [
-                            {
+                        setState(() {
+                          if (_events[DateFormat('yyyy-MM-dd')
+                                  .format(_selectedDay!)] !=
+                              null) {
+                            _events[DateFormat('yyyy-MM-dd')
+                                    .format(_selectedDay!)]
+                                ?.add({
                               "eventTitle": titleController.text,
                               "eventDesc": descController.text
-                            }
-                          ];
-                        }
-                        // print(_events);
-                        titleController.clear();
-                        descController.clear();
-                        Navigator.pop(context);
+                            });
+                          } else {
+                            _events[DateFormat('yyyy-MM-dd')
+                                .format(_selectedDay!)] = [
+                              {
+                                "eventTitle": titleController.text,
+                                "eventDesc": descController.text
+                              }
+                            ];
+                          }
+                          print(_events);
+                          titleController.clear();
+                          descController.clear();
+                          Navigator.pop(context);
+                        });
                       }
                     },
                     child: const Text("Add"))
