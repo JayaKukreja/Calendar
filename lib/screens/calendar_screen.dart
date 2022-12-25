@@ -42,7 +42,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   void initState() {
-    print(_events);
     super.initState();
     initializeDateFormatting();
     _loadPreviousEvents();
@@ -58,6 +57,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
   }
 
   _loadPreviousEvents() {
+    //events added in _events will be listed all here from database which 
+    //you can see when you add events from print statement below
+    //for now i have listed 2 events
     _events = {
       "2022-12-25": [
         {"eventTitle": "111", "eventDesc": "abc"}
@@ -66,7 +68,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
         {"eventTitle": "1230", "eventDesc": "123456789"}
       ]
     };
-    print(_events);
   }
 
   List _listOfEvents(DateTime dateTime) {
@@ -208,7 +209,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         daysOfWeekHeight: 60,
         headerStyle: const HeaderStyle(
           headerPadding: EdgeInsets.only(left: 30, top: 50, bottom: 20),
-          // leftChevronVisible: false,
+          leftChevronVisible: false,
           rightChevronVisible: false,
           titleTextStyle: TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
@@ -217,13 +218,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
             dowTextFormatter: (date, locale) =>
                 DateFormat.E(locale).format(date)[0],
             weekendStyle: const TextStyle(color: Colors.red),
-            // decoration: BoxDecoration(border: Border.all(color: Colors.white)),
             weekdayStyle: const TextStyle(color: Colors.white)),
         calendarStyle: CalendarStyle(
           cellAlignment: Alignment.topCenter,
           canMarkersOverflow: true,
           outsideDaysVisible: false,
-          // tableBorder: TableBorder.all(color: Colors.white),
           tableBorder: TableBorder.symmetric(
               inside: const BorderSide(color: Colors.grey)),
           defaultTextStyle: const TextStyle(color: Colors.grey, fontSize: 17),
@@ -234,16 +233,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
           ),
         ),
         onDaySelected: (selectedDay, focusedDay) {
-          // print("$_selectedDay _selectedDay");
-          // print("$selectedDay selectedDay");
-          // print("$focusedDay");
           if (!isSameDay(_selectedDay, selectedDay)) {
-            // Call `setState()` when updating the selected day
             setState(() {
               _selectedDay = selectedDay;
-              // print("$_selectedDay _selectedDay");
               _focusedDay = focusedDay;
-              // print("$_focusedDay");
             });
           }
         },
@@ -259,7 +252,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
         //   }
         // },
         onPageChanged: (focusedDay) {
-          // No need to call `setState()` here
           _focusedDay = focusedDay;
         },
       ),
